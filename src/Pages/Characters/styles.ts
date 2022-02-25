@@ -1,22 +1,19 @@
 import styled from "styled-components";
 
-type thumbnailData = {
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-};
-
-export const Container = styled.main``;
+export const Container = styled.main`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
 
 export const CardList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
-
-const urlImg = (props: thumbnailData) =>
-  `${props.thumbnail.path}.${props.thumbnail.extension}`;
 
 export const Card = styled.div`
   background: #f1f1f1;
@@ -33,14 +30,6 @@ export const Card = styled.div`
     text-align: justify;
   }
 
-  div#img {
-    height: 400px;
-    width: 100%;
-    background: url(${urlImg}) no-repeat center;
-    background-size: cover;
-
-    transition: all 0.8s;
-  }
   &:hover {
     div#img {
       height: 100px;
@@ -65,5 +54,19 @@ export const ButtomMore = styled.div`
 
   &:hover {
     background: #ec1d24;
+  }
+`;
+
+export const ContainerButtonMore = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  .btnMore {
+    width: 100%;
+    padding: 20px;
+    cursor: pointer;
+    background: #ef1721;
+    font-size: 1.4rem;
   }
 `;

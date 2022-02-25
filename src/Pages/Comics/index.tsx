@@ -7,46 +7,45 @@ import { Container, ContainerButtonMore } from "./styles";
 
 type ResponseData = {
   id: string;
-  name: string;
+  title: string;
   description: string;
   thumbnail: {
     path: string;
     extension: string;
   };
 };
-
-export function Characters() {
-  const [characters, setCharacters] = useState<ResponseData[]>([]);
+export function Comics() {
+  const [comics, setComics] = useState<ResponseData[]>([]);
 
   const handleMore = useCallback(async () => {
     try {
-      const offset = characters.length;
-      const response = await api.get("characters", {
+      const offset = comics.length;
+      const response = await api.get("comics", {
         params: {
           offset,
         },
       });
-      setCharacters([...characters, ...response.data.data.results]);
+      setComics([...comics, ...response.data.data.results]);
     } catch (err) {
       console.log(err);
     }
-  }, [characters]);
+  }, [comics]);
 
   useEffect(() => {
     api
-      .get("/characters")
-      .then((response) => setCharacters(response.data.data.results))
+      .get("/comics")
+      .then((response) => setComics(response.data.data.results))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Theme>
       <Container>
-        {characters.map((c) => (
+        {comics.map((c) => (
           <CardList
             key={c.id}
             id={c.id}
-            name={c.name}
+            name={c.title}
             description={c.description}
             thumbnail={c.thumbnail}
           />

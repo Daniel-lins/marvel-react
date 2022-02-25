@@ -1,10 +1,10 @@
-import Characters from "./Pages/Characters";
+import { Router } from "./routes";
 import GlobalStyle from "./styles/global";
 
 function App() {
   return (
     <div>
-      <Characters />
+      <Router />
       <GlobalStyle />
     </div>
   );

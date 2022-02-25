@@ -7,7 +7,7 @@ import { Container, ContainerButtonMore } from "./styles";
 
 type ResponseData = {
   id: string;
-  name: string;
+  title: string;
   description: string;
   thumbnail: {
     path: string;
@@ -15,38 +15,38 @@ type ResponseData = {
   };
 };
 
-export function Characters() {
-  const [characters, setCharacters] = useState<ResponseData[]>([]);
+export function Events() {
+  const [events, setEvents] = useState<ResponseData[]>([]);
 
   const handleMore = useCallback(async () => {
     try {
-      const offset = characters.length;
-      const response = await api.get("characters", {
+      const offset = events.length;
+      const response = await api.get("events", {
         params: {
           offset,
         },
       });
-      setCharacters([...characters, ...response.data.data.results]);
+      setEvents([...events, ...response.data.data.results]);
     } catch (err) {
       console.log(err);
     }
-  }, [characters]);
+  }, [events]);
 
   useEffect(() => {
     api
-      .get("/characters")
-      .then((response) => setCharacters(response.data.data.results))
+      .get("/events")
+      .then((response) => setEvents(response.data.data.results))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Theme>
       <Container>
-        {characters.map((c) => (
+        {events.map((c) => (
           <CardList
             key={c.id}
             id={c.id}
-            name={c.name}
+            name={c.title}
             description={c.description}
             thumbnail={c.thumbnail}
           />

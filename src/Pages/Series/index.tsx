@@ -7,7 +7,7 @@ import { Container, ContainerButtonMore } from "./styles";
 
 type ResponseData = {
   id: string;
-  name: string;
+  title: string;
   description: string;
   thumbnail: {
     path: string;
@@ -15,43 +15,43 @@ type ResponseData = {
   };
 };
 
-export function Characters() {
-  const [characters, setCharacters] = useState<ResponseData[]>([]);
+export function Series() {
+  const [series, setSeries] = useState<ResponseData[]>([]);
 
   const handleMore = useCallback(async () => {
     try {
-      const offset = characters.length;
-      const response = await api.get("characters", {
+      const offset = series.length;
+      const response = await api.get("series", {
         params: {
           offset,
         },
       });
-      setCharacters([...characters, ...response.data.data.results]);
+      setSeries([...series, ...response.data.data.results]);
     } catch (err) {
       console.log(err);
     }
-  }, [characters]);
+  }, [series]);
 
   useEffect(() => {
     api
-      .get("/characters")
-      .then((response) => setCharacters(response.data.data.results))
+      .get("/series")
+      .then((response) => setSeries(response.data.data.results))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Theme>
       <Container>
-        {characters.map((c) => (
+        {series.map((c) => (
           <CardList
             key={c.id}
             id={c.id}
-            name={c.name}
+            name={c.title}
             description={c.description}
             thumbnail={c.thumbnail}
           />
-        ))}
-      </Container>
+        ))}{" "}
+      </Container>{" "}
       <ContainerButtonMore>
         <button className="btnMore" type="button" onClick={handleMore}>
           More{" "}

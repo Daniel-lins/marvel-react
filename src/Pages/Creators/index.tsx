@@ -7,50 +7,49 @@ import { Container, ContainerButtonMore } from "./styles";
 
 type ResponseData = {
   id: string;
-  name: string;
+  firstName: string;
   description: string;
   thumbnail: {
     path: string;
     extension: string;
   };
 };
-
-export function Characters() {
-  const [characters, setCharacters] = useState<ResponseData[]>([]);
+export function Creators() {
+  const [creators, setCreators] = useState<ResponseData[]>([]);
 
   const handleMore = useCallback(async () => {
     try {
-      const offset = characters.length;
-      const response = await api.get("characters", {
+      const offset = creators.length;
+      const response = await api.get("creators", {
         params: {
           offset,
         },
       });
-      setCharacters([...characters, ...response.data.data.results]);
+      setCreators([...creators, ...response.data.data.results]);
     } catch (err) {
       console.log(err);
     }
-  }, [characters]);
+  }, [creators]);
 
   useEffect(() => {
     api
-      .get("/characters")
-      .then((response) => setCharacters(response.data.data.results))
+      .get("/creators")
+      .then((response) => setCreators(response.data.data.results))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <Theme>
       <Container>
-        {characters.map((c) => (
+        {creators.map((c) => (
           <CardList
             key={c.id}
             id={c.id}
-            name={c.name}
+            name={c.firstName}
             description={c.description}
             thumbnail={c.thumbnail}
           />
-        ))}
+        ))}{" "}
       </Container>
       <ContainerButtonMore>
         <button className="btnMore" type="button" onClick={handleMore}>
